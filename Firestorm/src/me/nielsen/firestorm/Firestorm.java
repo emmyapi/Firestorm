@@ -13,7 +13,7 @@ import java.awt.image.BufferStrategy;
 import javax.swing.JFrame;
 
 public class Firestorm extends Canvas implements Runnable{
-	
+
 	public static final String TITLE = "Firestorm";
 	public static final int WIDTH = 640;
 	public static final int HEIGHT = WIDTH / 4 * 3;

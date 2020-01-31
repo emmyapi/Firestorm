@@ -11,18 +11,29 @@ import java.util.Map;
 
 import javax.imageio.ImageIO;
 
+import me.nielsen.firestorm.utils.managers.TextureManager;
+
 public class Texture {
 	
-	private final static Map<String, Texture> texMap = new HashMap<String, Texture>();
-	private BufferedImage image;
+	private final static Map<String, TextureManager> texMap = new HashMap<String, TextureManager>();
+	private TextureManager manager;
 	
 	public Texture(String fileName) {
-		try {
-			image = ImageIO.read(new File("./resources/textures/" + fileName + ".png"));
-			texMap.put(fileName, this);
-		} catch(IOException e) {
-			e.printStackTrace();
+		
+		TextureManager oldTexture = texMap.get(fileName);
+		if(oldTexture != null) {
+			manager = oldTexture;
+			manager.addReference();
+			
+		}else {
+			try {
+				manager = new TextureManager(ImageIO.read(new File("./resources/textures/" + fileName + ".png")));
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
 		}
+		
+		
 	}
 	
 	
