@@ -1,6 +1,7 @@
-package me.nielsen.firestorm;
-
+//I'M LEARNING JAVA THUS THIS CODE IS MORE OR LESS A COPY FROM MATTHEW ROGERS "BOSSLETSPLAYS"
 //https://www.youtube.com/watch?v=qWVUQPWa67M&list=PLzM5baL2UjtLEewQScGTWNgeoGXMxG7pc&index=1
+
+package me.nielsen.firestorm;
 
 import java.awt.Canvas;
 import java.awt.Color;
