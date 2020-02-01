@@ -6,11 +6,19 @@ package me.nielsen.firestorm;
 import java.awt.Canvas;
 import java.awt.Color;
 import java.awt.Graphics;
+import java.awt.event.KeyEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.awt.image.BufferStrategy;
 
 import javax.swing.JFrame;
+
+import java.awt.event.MouseEvent;
+import me.nielsen.firestorm.input.KeyInput;
+import me.nielsen.firestorm.input.MouseInput;
+import me.nielsen.firestorm.rendering.Texture;
+import me.nielsen.firestorm.rendering.textures.Sprite;
+import me.nielsen.firestorm.rendering.textures.SpriteSheet;
 
 public class Firestorm extends Canvas implements Runnable{
 
@@ -19,8 +27,33 @@ public class Firestorm extends Canvas implements Runnable{
 	public static final int HEIGHT = WIDTH / 4 * 3;
 	
 	private boolean running;
+	private Texture texture, t2, t3, t4;
+	private SpriteSheet sheet;
+	private Sprite sprite, s2;
+	private double sX = 350, sY = 300;
 	
-	private void tick() {}
+	public Firestorm() {
+		texture = new Texture("spagnetosmallpp");
+		t2 = new Texture("spagnetosmallpp");
+		t3 = new Texture("spagnetosmallpp");
+		t4 = new Texture("spagnetosmallpp");
+		sheet = new SpriteSheet(new Texture("test_sheet"), 64);
+		sprite = new Sprite(sheet, 3, 1);
+		//s2 = new Sprite(new SpriteSheet(new Texture("test_sheet"), 64), 1, 2);
+		s2 = new Sprite(sheet, 1, 2);
+		addKeyListener(new KeyInput());
+		MouseInput mi = new MouseInput();
+		addMouseListener(mi);
+		addMouseMotionListener(mi);
+
+		System.out.println("Button 1: " + MouseEvent.BUTTON1);
+		System.out.println("Button 2: " + MouseEvent.BUTTON2);
+		System.out.println("Button 3: " + MouseEvent.BUTTON3);
+	}
+	
+	private void tick() {
+		
+	}
 	
 	private void render() {
 		BufferStrategy bs = getBufferStrategy();
@@ -33,6 +66,12 @@ public class Firestorm extends Canvas implements Runnable{
 		
 		g.setColor(Color.red);
 		g.fillRect(0, 0, WIDTH, HEIGHT);
+		texture.render(g, 100, 100);
+		t2.render(g, 100, 150);
+		t3.render(g, 150, 100);
+		t4.render(g, 200, 200);
+		sprite.render(g, sX, sY);
+		s2.render(g, 0, 0);
 		
 		g.dispose();
 		bs.show();
@@ -51,6 +90,7 @@ public class Firestorm extends Canvas implements Runnable{
 
 	@Override
 	public void run() {
+		requestFocus();
 		double target = 60.0;
 		double nsPerTick = 1000000000.0 / target;
 		long lastTime = System.nanoTime();
@@ -59,6 +99,7 @@ public class Firestorm extends Canvas implements Runnable{
 		int fps = 0;
 		int tps = 0;
 		boolean canRender = false; 
+		
 		while (running) {
 			long now = System.nanoTime();
 			unprocessed += (now - lastTime) / nsPerTick;
@@ -66,6 +107,8 @@ public class Firestorm extends Canvas implements Runnable{
 			
 			if(unprocessed >= 1.0) {
 				tick();
+				KeyInput.update();
+				MouseInput.update();
 				unprocessed--;
 				tps++;
 				canRender = true;
@@ -109,7 +152,6 @@ public class Firestorm extends Canvas implements Runnable{
 		});
 		frame.setLocationRelativeTo(null);
 		frame.setVisible(true);
-		frame.requestFocus();
 		game.start();
 	}
 	
