@@ -1,6 +1,7 @@
 package me.nielsen.firestorm.states;
 
 import java.awt.Graphics;
+import java.awt.Graphics2D;
 import java.util.ArrayList;
 
 import me.nielsen.firestorm.Game;
@@ -23,6 +24,13 @@ public class GameState implements State{
 		new Player(new Sprite("spagnetosmallpp"), 100, 100, this);
 		float x = 0;
 		float y = Game.HEIGHT - 64;
+
+		tiles.add(new Tile(200, 200, new Sprite(new SpriteSheet(new Texture("terrain"), 64), 1, 1)));
+		tiles.add(new Tile(100, 480, new Sprite(new SpriteSheet(new Texture("terrain"), 64), 1, 1)));
+		tiles.add(new Tile(400, 50, new Sprite(new SpriteSheet(new Texture("terrain"), 64), 1, 1)));
+		tiles.add(new Tile(300, 300, new Sprite(new SpriteSheet(new Texture("terrain"), 64), 1, 1)));
+		tiles.add(new Tile(640 - 64, 300, new Sprite(new SpriteSheet(new Texture("terrain"), 64), 1, 1)));
+		
 		for(int i = 0; i < 10; i++) {
 			tiles.add(new Tile(x, y, new Sprite(new SpriteSheet(new Texture("terrain"), 64), 1, 1)));
 			x += 70;
@@ -41,7 +49,7 @@ public class GameState implements State{
 	}
 
 	@Override
-	public void render(Graphics g) {
+	public void render(Graphics2D g) {
 		for(Entity e : entities)
 			e.render(g);
 		for(Tile e : tiles)
@@ -60,6 +68,10 @@ public class GameState implements State{
 
 	public void addEntity(Entity entity) {
 		entities.add(entity);
+	}
+	
+	public ArrayList<Tile> getTiles() {
+		return tiles;
 	}
 
 }

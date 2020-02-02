@@ -1,6 +1,7 @@
 package me.nielsen.firestorm.states;
 
 import java.awt.Graphics;
+import java.awt.Graphics2D;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -37,7 +38,7 @@ public class StateManager {
 		currentState.tick(this);
 	}
 	
-	public void render(Graphics g) {
+	public void render(Graphics2D g) {
 		currentState.render(g);
 	}
 

@@ -6,6 +6,7 @@ package me.nielsen.firestorm;
 import java.awt.Canvas;
 import java.awt.Color;
 import java.awt.Graphics;
+import java.awt.Graphics2D;
 import java.awt.event.KeyEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
@@ -61,10 +62,13 @@ public class Game extends Canvas implements Runnable{
 		}
 		
 		Graphics g = bs.getDrawGraphics();
+		Graphics2D g2d = (Graphics2D) g;
+		g2d.translate(-6, -28);
 		
-		g.setColor(Color.red);
-		g.fillRect(0, 0, WIDTH, HEIGHT);
-		stateManager.render(g);
+		g2d.setColor(Color.red);
+		g2d.fillRect(0, 0, WIDTH, HEIGHT);
+		
+		stateManager.render(g2d);
 		
 		g.dispose();
 		bs.show();
