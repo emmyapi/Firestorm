@@ -16,9 +16,10 @@ import javax.swing.JFrame;
 import java.awt.event.MouseEvent;
 import me.nielsen.firestorm.input.KeyInput;
 import me.nielsen.firestorm.input.MouseInput;
-import me.nielsen.firestorm.rendering.Texture;
 import me.nielsen.firestorm.rendering.textures.Sprite;
 import me.nielsen.firestorm.rendering.textures.SpriteSheet;
+import me.nielsen.firestorm.rendering.textures.Texture;
+import me.nielsen.firestorm.states.GameState;
 import me.nielsen.firestorm.states.MenuState;
 import me.nielsen.firestorm.states.StateManager;
 
@@ -43,6 +44,7 @@ public class Firestorm extends Canvas implements Runnable{
 		stateManager = new StateManager();
 		
 		stateManager.addState(new MenuState());
+		stateManager.addState(new GameState());
 		
 		INSTANCE = this;
 	}

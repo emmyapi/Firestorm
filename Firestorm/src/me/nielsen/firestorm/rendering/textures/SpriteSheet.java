@@ -1,7 +1,5 @@
 package me.nielsen.firestorm.rendering.textures;
 
-import me.nielsen.firestorm.rendering.Texture;
-
 public class SpriteSheet {
 	
 	private Texture texture;

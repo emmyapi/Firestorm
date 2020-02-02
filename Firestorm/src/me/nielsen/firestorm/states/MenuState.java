@@ -70,7 +70,7 @@ public class MenuState implements State {
 	private void select(StateManager stateManager) {
 		switch (currentSelection) {
 			case 0:
-				stateManager.setState("lvl1");
+				stateManager.setState("level1");
 				//System.out.println("Play");
 				break;
 			case 1:

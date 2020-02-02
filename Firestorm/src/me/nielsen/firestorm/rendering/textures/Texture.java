@@ -1,7 +1,7 @@
 //I'M LEARNING JAVA THUS THIS CODE IS MORE OR LESS A COPY FROM MATTHEW ROGERS "BOSSLETSPLAYS"
 //https://www.youtube.com/watch?v=qWVUQPWa67M&list=PLzM5baL2UjtLEewQScGTWNgeoGXMxG7pc&index=1
 
-package me.nielsen.firestorm.rendering;
+package me.nielsen.firestorm.rendering.textures;
 
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
@@ -38,13 +38,13 @@ public class Texture {
 		}
 		
 	}
-	//MIGHT BE PROBLEMATIC
+	@Override
 	protected void finalize() throws Throwable {
 		if(manager.removeReference() && !fileName.isEmpty()) {
 			texMap.remove(fileName);
 		super.finalize();
-		}
-		
+	}
+	
 	}
 	
 	public void render(Graphics g, double x, double y) {
