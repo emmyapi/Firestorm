@@ -6,7 +6,7 @@ import java.awt.FontMetrics;
 import java.awt.Graphics;
 import java.awt.Rectangle;
 
-import me.nielsen.firestorm.Firestorm;
+import me.nielsen.firestorm.Game;
 import me.nielsen.firestorm.utils.Fonts;
 
 public class Button extends Rectangle{
@@ -38,7 +38,7 @@ public class Button extends Rectangle{
 			Fonts.drawString(g, font, color, text, textY);
 		
 		FontMetrics fm = g.getFontMetrics();
-		this.x = (Firestorm.WIDTH - fm.stringWidth(text)) / 2;
+		this.x = (Game.WIDTH - fm.stringWidth(text)) / 2;
 		this.y = textY - fm.getHeight();
 		this.width = fm.stringWidth(text);
 		this.height = fm.getHeight();

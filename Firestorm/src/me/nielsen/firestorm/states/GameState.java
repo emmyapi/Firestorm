@@ -3,18 +3,30 @@ package me.nielsen.firestorm.states;
 import java.awt.Graphics;
 import java.util.ArrayList;
 
+import me.nielsen.firestorm.Game;
 import me.nielsen.firestorm.entities.Entity;
 import me.nielsen.firestorm.entities.Player;
 import me.nielsen.firestorm.rendering.textures.Sprite;
+import me.nielsen.firestorm.rendering.textures.SpriteSheet;
+import me.nielsen.firestorm.rendering.textures.Texture;
+import me.nielsen.firestorm.world.Tile;
 
 public class GameState implements State{
 	
 	private ArrayList<Entity> entities;
+	private ArrayList<Tile> tiles;
 
 	@Override
 	public void init() {
 		entities = new ArrayList<Entity>();
+		tiles = new ArrayList<Tile>();
 		new Player(new Sprite("spagnetosmallpp"), 100, 100, this);
+		float x = 0;
+		float y = Game.HEIGHT - 64;
+		for(int i = 0; i < 10; i++) {
+			tiles.add(new Tile(x, y, new Sprite(new SpriteSheet(new Texture("terrain"), 64), 1, 1)));
+			x += 70;
+		}
 	}
 
 	@Override
@@ -31,6 +43,8 @@ public class GameState implements State{
 	@Override
 	public void render(Graphics g) {
 		for(Entity e : entities)
+			e.render(g);
+		for(Tile e : tiles)
 			e.render(g);
 	}
 

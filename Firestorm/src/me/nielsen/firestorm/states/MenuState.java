@@ -7,7 +7,7 @@ import java.awt.Rectangle;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 
-import me.nielsen.firestorm.Firestorm;
+import me.nielsen.firestorm.Game;
 import me.nielsen.firestorm.input.KeyInput;
 import me.nielsen.firestorm.input.MouseInput;
 import me.nielsen.firestorm.rendering.ui.Button;
@@ -78,15 +78,15 @@ public class MenuState implements State {
 				break;
 			case 2:
 				System.out.println("Exit");
-				Firestorm.INSTANCE.stop();
+				Game.INSTANCE.stop();
 				break;
 		}
 	}
 	
 	public void render(Graphics g) {
 		g.setColor(Color.BLACK);
-		g.fillRect(0, 0, Firestorm.WIDTH, Firestorm.HEIGHT);
-		Fonts.drawString(g, new Font("Arial", Font.BOLD, 72), Color.ORANGE, Firestorm.TITLE, 80);
+		g.fillRect(0, 0, Game.WIDTH, Game.HEIGHT);
+		Fonts.drawString(g, new Font("Arial", Font.BOLD, 72), Color.ORANGE, Game.TITLE, 80);
 		
 		for(int i = 0; i < options.length; i++) {
 			if(i == currentSelection)
