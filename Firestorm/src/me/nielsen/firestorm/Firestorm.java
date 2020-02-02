@@ -19,6 +19,8 @@ import me.nielsen.firestorm.input.MouseInput;
 import me.nielsen.firestorm.rendering.Texture;
 import me.nielsen.firestorm.rendering.textures.Sprite;
 import me.nielsen.firestorm.rendering.textures.SpriteSheet;
+import me.nielsen.firestorm.states.MenuState;
+import me.nielsen.firestorm.states.StateManager;
 
 public class Firestorm extends Canvas implements Runnable{
 
@@ -28,18 +30,25 @@ public class Firestorm extends Canvas implements Runnable{
 	
 	private boolean running;
 	
-	private Menu menu;
+	private StateManager stateManager;
+	
+	public static Firestorm INSTANCE;
+	
 	
 	public Firestorm() {
 		addKeyListener(new KeyInput());
 		MouseInput mi = new MouseInput();
 		addMouseListener(mi);
 		addMouseMotionListener(mi);
-		menu = new Menu();
+		stateManager = new StateManager();
+		
+		stateManager.addState(new MenuState());
+		
+		INSTANCE = this;
 	}
 	
 	private void tick() {
-		
+		stateManager.tick();
 	}
 	
 	private void render() {
@@ -53,7 +62,7 @@ public class Firestorm extends Canvas implements Runnable{
 		
 		g.setColor(Color.red);
 		g.fillRect(0, 0, WIDTH, HEIGHT);
-		menu.render(g);
+		stateManager.render(g);
 		
 		g.dispose();
 		bs.show();
@@ -65,7 +74,7 @@ public class Firestorm extends Canvas implements Runnable{
 		new Thread(this, "FirestormMain-Thread").start();
 	}
 	
-	private void stop() {
+	public void stop() {
 		if(!running) return;
 		running = false;
 	}
