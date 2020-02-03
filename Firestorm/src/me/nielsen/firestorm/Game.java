@@ -29,6 +29,7 @@ public class Game extends Canvas implements Runnable{
 	public static final String TITLE = "Firestorm";
 	public static final int WIDTH = 640;
 	public static final int HEIGHT = WIDTH / 4 * 3;
+	public static final boolean DEBUG = false;
 	
 	private boolean running;
 	
@@ -65,7 +66,7 @@ public class Game extends Canvas implements Runnable{
 		Graphics2D g2d = (Graphics2D) g;
 		g2d.translate(-6, -28);
 		
-		g2d.setColor(Color.red);
+		g2d.setColor(Color.BLACK);
 		g2d.fillRect(0, 0, WIDTH, HEIGHT);
 		
 		stateManager.render(g2d);

@@ -21,19 +21,19 @@ public class GameState implements State{
 	public void init() {
 		entities = new ArrayList<Entity>();
 		tiles = new ArrayList<Tile>();
-		new Player(new Sprite("spagnetosmallpp"), 100, 100, this);
+		new Player(new Sprite("player"), 100, 100, this);
 		float x = 0;
 		float y = Game.HEIGHT - 64;
 
-		tiles.add(new Tile(200, 200, new Sprite(new SpriteSheet(new Texture("terrain"), 64), 1, 1)));
-		tiles.add(new Tile(100, 480, new Sprite(new SpriteSheet(new Texture("terrain"), 64), 1, 1)));
-		tiles.add(new Tile(400, 50, new Sprite(new SpriteSheet(new Texture("terrain"), 64), 1, 1)));
-		tiles.add(new Tile(300, 300, new Sprite(new SpriteSheet(new Texture("terrain"), 64), 1, 1)));
-		tiles.add(new Tile(640 - 64, 300, new Sprite(new SpriteSheet(new Texture("terrain"), 64), 1, 1)));
+		tiles.add(new Tile(200, 200, new Sprite(new SpriteSheet(new Texture("terrain"), 32), 1, 1))); //GREEN
+		tiles.add(new Tile(100, 480 - 64 - 64, new Sprite(new SpriteSheet(new Texture("terrain"), 32), 2, 1))); //GREY
+		tiles.add(new Tile(400, 50, new Sprite(new SpriteSheet(new Texture("terrain"), 32), 3, 1))); //BLUE
+		tiles.add(new Tile(300, 300, new Sprite(new SpriteSheet(new Texture("terrain"), 32), 4, 1))); //MAGENTA
+		tiles.add(new Tile(640 - 64, 300, new Sprite(new SpriteSheet(new Texture("terrain"), 32), 1, 2)));
 		
 		for(int i = 0; i < 10; i++) {
-			tiles.add(new Tile(x, y, new Sprite(new SpriteSheet(new Texture("terrain"), 64), 1, 1)));
-			x += 70;
+			tiles.add(new Tile(x, y, new Sprite(new SpriteSheet(new Texture("terrain"), 32), 1, 1)));
+			x += 32;
 		}
 	}
 
