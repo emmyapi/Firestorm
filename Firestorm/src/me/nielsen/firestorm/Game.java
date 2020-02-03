@@ -17,8 +17,6 @@ import javax.swing.JFrame;
 import java.awt.event.MouseEvent;
 import me.nielsen.firestorm.input.KeyInput;
 import me.nielsen.firestorm.input.MouseInput;
-import me.nielsen.firestorm.rendering.textures.Sprite;
-import me.nielsen.firestorm.rendering.textures.SpriteSheet;
 import me.nielsen.firestorm.rendering.textures.Texture;
 import me.nielsen.firestorm.states.GameState;
 import me.nielsen.firestorm.states.MenuState;
@@ -64,6 +62,7 @@ public class Game extends Canvas implements Runnable{
 		
 		Graphics g = bs.getDrawGraphics();
 		Graphics2D g2d = (Graphics2D) g;
+		
 		g2d.translate(-6, -28);
 		
 		g2d.setColor(Color.BLACK);

@@ -12,47 +12,57 @@ import java.util.Map;
 
 import javax.imageio.ImageIO;
 
-import me.nielsen.firestorm.utils.managers.TextureManager;
 
 public class Texture {
 	
-	private final static Map<String, TextureManager> texMap = new HashMap<String, TextureManager>();
-	private TextureManager manager;
+	private final static Map<String, BufferedImage> texMap = new HashMap<String, BufferedImage>();
+	private BufferedImage image;
 	private String fileName;
+	private int width, height;
 	
 	public Texture(String fileName) {
 		this.fileName = fileName;
-		TextureManager oldTexture = texMap.get(fileName);
+		BufferedImage oldTexture = texMap.get(fileName);
 		if(oldTexture != null) {
-			manager = oldTexture;
-			manager.addReference();
+			this.image = oldTexture;
 		} else {
 			try {
 				System.out.println("Loading texture: " + fileName);
-				manager = new TextureManager(ImageIO.read(new File("./resources/textures/" + fileName + ".png")));
-				texMap.put(fileName, manager);
+				this.image = ImageIO.read(new File("./resources/textures/" + fileName + ".png"));
+				texMap.put(fileName, image);
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
-			
 		}
+		this.width = image.getWidth();
+		this.height = image.getHeight();
 		
 	}
-	@Override
-	protected void finalize() throws Throwable {
-		if(manager.removeReference() && !fileName.isEmpty()) {
-			texMap.remove(fileName);
-		super.finalize();
+	
+	public Texture(Texture spriteSheet, int x, int y, int width, int height) {
+		this.width = width;
+		this.height = height;
+		String key = spriteSheet.fileName + "_" + x + "_" + y;
+		BufferedImage old = texMap.get(key);
+		if(old != null) this.image = old;
+		else this.image = spriteSheet.image.getSubimage(x * width - width, y * height - height, width, height);
 	}
 	
+	public Texture(Texture spriteSheet, int x, int y, int size) {
+		this(spriteSheet, x, y, size, size);
 	}
-	
+		
 	public void render(Graphics g, double x, double y) {
-		g.drawImage(manager.getImage(), (int) x, (int) y, null);
+		g.drawImage(image, (int) x, (int) y, null);
+	}
+
+	public int getWidth() {
+		return width;
+	}
+
+	public int getHeight() {
+		return height;
 	}
 	
-	public BufferedImage getImage(){
-		return manager.getImage();
-	}
 	
 }

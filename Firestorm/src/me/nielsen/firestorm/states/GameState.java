@@ -7,34 +7,22 @@ import java.util.ArrayList;
 import me.nielsen.firestorm.Game;
 import me.nielsen.firestorm.entities.Entity;
 import me.nielsen.firestorm.entities.Player;
-import me.nielsen.firestorm.rendering.textures.Sprite;
-import me.nielsen.firestorm.rendering.textures.SpriteSheet;
 import me.nielsen.firestorm.rendering.textures.Texture;
 import me.nielsen.firestorm.world.Tile;
+import me.nielsen.firestorm.world.World;
 
 public class GameState implements State{
 	
 	private ArrayList<Entity> entities;
 	private ArrayList<Tile> tiles;
+	private World world;
 
 	@Override
 	public void init() {
 		entities = new ArrayList<Entity>();
 		tiles = new ArrayList<Tile>();
-		new Player(new Sprite("player"), 100, 100, this);
-		float x = 0;
-		float y = Game.HEIGHT - 64;
-
-		tiles.add(new Tile(200, 200, new Sprite(new SpriteSheet(new Texture("terrain"), 32), 1, 1))); //GREEN
-		tiles.add(new Tile(100, 480 - 64 - 64, new Sprite(new SpriteSheet(new Texture("terrain"), 32), 2, 1))); //GREY
-		tiles.add(new Tile(400, 50, new Sprite(new SpriteSheet(new Texture("terrain"), 32), 3, 1))); //BLUE
-		tiles.add(new Tile(300, 300, new Sprite(new SpriteSheet(new Texture("terrain"), 32), 4, 1))); //MAGENTA
-		tiles.add(new Tile(640 - 64, 300, new Sprite(new SpriteSheet(new Texture("terrain"), 32), 1, 2)));
-		
-		for(int i = 0; i < 10; i++) {
-			tiles.add(new Tile(x, y, new Sprite(new SpriteSheet(new Texture("terrain"), 32), 1, 1)));
-			x += 32;
-		}
+		//new Player(new Sprite("player"), 100, 100, this);
+		world = new World("level1", this);
 	}
 
 	@Override
@@ -68,6 +56,10 @@ public class GameState implements State{
 
 	public void addEntity(Entity entity) {
 		entities.add(entity);
+	}
+	
+	public void addTile(Tile tile) {
+		tiles.add(tile);
 	}
 	
 	public ArrayList<Tile> getTiles() {

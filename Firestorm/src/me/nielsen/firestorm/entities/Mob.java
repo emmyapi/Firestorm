@@ -1,6 +1,9 @@
 package me.nielsen.firestorm.entities;
 
-import me.nielsen.firestorm.rendering.textures.Sprite;
+import java.awt.Graphics2D;
+
+import me.nielsen.firestorm.rendering.textures.Animation;
+import me.nielsen.firestorm.rendering.textures.Texture;
 import me.nielsen.firestorm.states.GameState;
 import me.nielsen.firestorm.world.Tile;
 
@@ -9,19 +12,33 @@ public abstract class Mob extends Entity{
 	protected double dx, dy; //velocity (d = delta)
 	protected double maxDY;
 	protected double gravity;
-	protected boolean falling = true;
+	protected boolean falling;
 	protected boolean canJump;
+	protected boolean moving;
+	protected Animation anime;
 
-	public Mob(Sprite sprite, double x, double y, GameState state) {
-		super(sprite, x, y, state);
+	public Mob(Texture texture, double x, double y, GameState state, Animation anime) {
+		super(texture, x, y, state);
+		this.anime = anime;
+		falling = true;
 		gravity = 0.5;
+		maxDY = 7;
 	}
 	
 	@Override
 	public void tick() {
 		move();
 		fall();
-		maxDY = 7;
+		if(dx != 0) moving = true;
+		else moving = false;
+		if(moving) anime.run();
+	}
+	
+	@Override
+	public void render(Graphics2D g) {
+		if(!moving)
+			super.render(g);
+		else anime.render(g, x, y);
 	}
 	
 	public void move() {
